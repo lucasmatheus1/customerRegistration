@@ -1,0 +1,70 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Client {
+  id               Int                @id @default(autoincrement())
+  name             String
+  email            String             @unique
+  consultors       Consultor[]        @relation("ClientConsultors")
+  partnerSuppliers PartnerSupplier[]  @relation("ClientPartnerSuppliers")
+}
+
+model Consultant {
+  id       Int       @id @default(autoincrement())
+  name     String
+  email    String    @unique
+  clients  Client[]  @relation("ClientConsultors")
+}
+
+model Category {
+  id   Int    @id @default(autoincrement())
+  name String
+}
+
+model PartnerSupplier {
+  id       Int     @id @default(autoincrement())
+  name     String
+  clients  Client[] @relation("ClientPartnerSuppliers")
+}
+
+model Load {
+  id    Int     @id @default(autoincrement())
+  // Define load fields
+}
+
+model MonthlyFeeValues {
+  id    Int     @id @default(autoincrement())
+  // Define monthly fee values fields
+}
+
+// Relationships
+
+model ClientConsultor {
+  id           Int        @id @default(autoincrement())
+  client       Client     @relation(fields: [clientId], references: [id])
+  clientId     Int
+  consultant   Consultant @relation(fields: [consultantId], references: [id])
+  consultantId Int
+  @@id([clientId, consultantId])
+}
+
+model ClientPartnerSupplier {
+  id             Int              @id @default(autoincrement())
+  client         Client           @relation(fields: [clientId], references: [id])
+  clientId       Int
+  partnerSupplier PartnerSupplier @relation(fields: [partnerSupplierId], references: [id])
+  partnerSupplierId Int
+  @@id([clientId, partnerSupplierId])
+}
