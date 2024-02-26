@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
@@ -14,57 +8,95 @@ generator client {
 }
 
 model Client {
-  id               Int                @id @default(autoincrement())
-  name             String
-  email            String             @unique
-  consultors       Consultor[]        @relation("ClientConsultors")
-  partnerSuppliers PartnerSupplier[]  @relation("ClientPartnerSuppliers")
+  id_client           String           @id @default(dbgenerated("gen_random_uuid()"))
+  consultant_id       String?        @unique
+  consultant           Consultant?    @relation(fields: [consultant_id], references: [id_consultant])
+  panel               String
+  hours               DateTime
+  integration_date    DateTime
+  churn_date          DateTime
+  model_contracts     ModelContract[]
+  deliveries          Delivery[]
+  client_data         ClientData[]
+  sporadic_products   SporadicProduct[]
+  classic_monthly_fees ClassicMonthlyFee[]
+  on_demand_monthly_fees OnDemandMonthlyFee[]
+  third_party_services ThirdPartyServices[]
+}
+
+model ModelContract {
+  id          String   @id @default(dbgenerated("gen_random_uuid()"))
+  id_client   String
+  point_zero  Decimal
+  variable    Int
+  revenue     Decimal
+  client      Client @relation(fields: [id_client], references: [id_client])
+}
+
+model Delivery {
+  id                      String   @id @default(dbgenerated("gen_random_uuid()"))
+  id_client               String
+  methodological_workshop Boolean
+  diagnosis_completed     Boolean
+  critical_analysis       Boolean
+  client                  Client   @relation(fields: [id_client], references: [id_client])
+}
+
+model ClientData {
+  id          String   @id @default(dbgenerated("gen_random_uuid()"))
+  id_client   String
+  CEP         String
+  phone       String
+  address     String
+  state       String
+  region      String
+  owner       String
+  client      Client @relation(fields: [id_client], references: [id_client])
 }
 
 model Consultant {
-  id       Int       @id @default(autoincrement())
-  name     String
-  email    String    @unique
-  clients  Client[]  @relation("ClientConsultors")
+  id_consultant String @id @default(dbgenerated("gen_random_uuid()"))
+  name          String
+  age           String
+  clients       Client[]
 }
 
-model Category {
-  id   Int    @id @default(autoincrement())
+model SporadicProduct {
+  id                  String   @id @default(dbgenerated("gen_random_uuid()"))
+  id_client           String
+  sporadic_product    String
+  value               Decimal
+  client              Client   @relation(fields: [id_client], references: [id_client])
+}
+
+model ClassicMonthlyFee {
+  id          String   @id @default(dbgenerated("gen_random_uuid()"))
+  id_client   String
+  monthly_fee Decimal
+  client      Client @relation(fields: [id_client], references: [id_client])
+}
+
+model OnDemandMonthlyFee {
+  id          String   @id @default(dbgenerated("gen_random_uuid()"))
+  id_client   String
+  fixed_hour  DateTime
+  product     String
+  value       Decimal
+  client      Client @relation(fields: [id_client], references: [id_client])
+}
+
+model ThirdParty {
+  id   String   @id @default(dbgenerated("gen_random_uuid()"))
   name String
+  third_party_services ThirdPartyServices[]
 }
 
-model PartnerSupplier {
-  id       Int     @id @default(autoincrement())
-  name     String
-  clients  Client[] @relation("ClientPartnerSuppliers")
-}
-
-model Load {
-  id    Int     @id @default(autoincrement())
-  // Define load fields
-}
-
-model MonthlyFeeValues {
-  id    Int     @id @default(autoincrement())
-  // Define monthly fee values fields
-}
-
-// Relationships
-
-model ClientConsultor {
-  id           Int        @id @default(autoincrement())
-  client       Client     @relation(fields: [clientId], references: [id])
-  clientId     Int
-  consultant   Consultant @relation(fields: [consultantId], references: [id])
-  consultantId Int
-  @@id([clientId, consultantId])
-}
-
-model ClientPartnerSupplier {
-  id             Int              @id @default(autoincrement())
-  client         Client           @relation(fields: [clientId], references: [id])
-  clientId       Int
-  partnerSupplier PartnerSupplier @relation(fields: [partnerSupplierId], references: [id])
-  partnerSupplierId Int
-  @@id([clientId, partnerSupplierId])
+model ThirdPartyServices {
+  id              String   @id @default(dbgenerated("gen_random_uuid()"))
+  id_client       String
+  id_third_party  String
+  month           String
+  value           Decimal
+  client          Client     @relation(fields: [id_client], references: [id_client])
+  third_party     ThirdParty @relation(fields: [id_third_party], references: [id])
 }
