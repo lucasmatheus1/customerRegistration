@@ -1,0 +1,37 @@
+.container-fluid {
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar {
+  background-color: #f0f0f0;
+  position: fixed;
+  top: 0;
+  bottom: auto;
+  left: 0;
+  overflow-y: auto;
+}
+
+.content {
+  margin-top: 60px; /* Ajuste a margem superior para deixar espaço para o menu lateral */
+}
+
+@media (max-width: 767px) {
+  .container-fluid {
+    flex-direction: column-reverse; /* Inverte a ordem das colunas quando a largura da tela for menor que 768px */
+  }
+
+  .sidebar {
+    width: 100%;
+    left: -100%;
+    transition: left 0.3s ease; /* Adiciona uma transição para animar o movimento do sidebar */
+  }
+
+  .content {
+    margin-top: 0; /* Reseta a margem superior */
+  }
+
+  .sidebar.open {
+    left: 0;
+  }
+}
