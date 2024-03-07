@@ -1,16 +1,37 @@
-import React from 'react';
-import { Container, Nav } from 'react-bootstrap';
-import './index.css'; // Importe o arquivo CSS aqui
+import React, { useState } from 'react';
+import './index.css';
+import { Link } from 'react-router-dom'; // Import only the Link component
+import { Toolbar, Drawer, List, ListItem, ListItemText, IconButton } from '@material-ui/core';
+import MenuIcon from '@material-ui/icons/Menu';
 
 function AppSidebar() {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
+
+  // const handleLogout = () => {
+  //   console.log("Você saiu!");
+  // };
   return (
-    <Container fluid className="p-0">
-      <Nav defaultActiveKey="/" className="flex-column sidebar">
-        <Nav.Link href="/">Início</Nav.Link>
-        <Nav.Link href="/dashboard">Dashboard</Nav.Link>
-        <Nav.Link href="/logout">Sair</Nav.Link>
-      </Nav>
-    </Container>
+    <>
+      <Toolbar>
+        <IconButton color="inherit" onClick={toggleSidebar} edge="start">
+          <MenuIcon />
+        </IconButton>
+      </Toolbar>
+      <Drawer anchor="left" open={isSidebarOpen} onClose={toggleSidebar}>
+        <List>
+          <ListItem button component={Link} to="/">
+            <ListItemText primary="Home" />
+          </ListItem>
+          <ListItem button component={Link} to="/dashboard">
+            <ListItemText primary="Dashboard" />
+          </ListItem>
+        </List>
+      </Drawer>
+    </>
   );
 }
 
