@@ -1,19 +1,13 @@
 import { PrismaClient } from '@prisma/client'
 import express from 'express'
+import clientRoutes from './routes/clientRoutes';
 
 const prisma = new PrismaClient()
 const app = express()
 
 app.use(express.json())
 
-app.get('/clients', async (req, res) => {
-    let clients = await prisma.client.findMany(); // Espera a resolução da promessa
-    res.json({
-      message: "OK",
-      data: clients
-    });
-});
-
+app.use('/client', clientRoutes);
 
 app.use((req, res, next) => {
     res.status(404);
