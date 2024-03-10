@@ -35,6 +35,15 @@ function AppSidebar() {
           <ListItem button component={Link} to="/dashboard">
             <ListItemText primary="Dashboard" />
           </ListItem>
+          <ListItem button component={Link} to="/active-customers">
+            <ListItemText primary="Clientes Ativos" />
+          </ListItem>
+          <ListItem button component={Link} to="/clients-per-consultant">
+            <ListItemText primary="Clientes por Consultor" />
+          </ListItem>
+          <ListItem button component={Link} to="/partner-suppliers">
+            <ListItemText primary="Fornecedores Parceiros" />
+          </ListItem>
         </List>
       </Drawer>
     </>

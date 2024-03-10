@@ -9,7 +9,6 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
     alignItems: 'center',
     padding: theme.spacing(2),
-    border: '1px solid red',
     width: '100%'
   },
   card: {
@@ -19,7 +18,6 @@ const useStyles = makeStyles((theme) => ({
     padding: 20,
   },
   metricsCard: {
-    // Removido o estilo para que as métricas ocupem todo o espaço disponível
   },
   metricsList: {
     listStyle: 'none',
@@ -30,9 +28,8 @@ const useStyles = makeStyles((theme) => ({
     borderBottom: '1px solid #ddd',
   },
   chartCard: {
-    // Adicionado estilo para definir a largura do gráfico
     width: 300,
-    marginLeft: theme.spacing(2), // Adicionado espaçamento à esquerda
+    marginLeft: theme.spacing(2), 
   },
   metricsText: {
     fontSize: 16,
@@ -46,7 +43,6 @@ const useStyles = makeStyles((theme) => ({
 const Dashboard = () => {
   const classes = useStyles();
 
-  // Configuração do gráfico (dados de exemplo)
   const data = {
     labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho'],
     datasets: [{
@@ -58,7 +54,6 @@ const Dashboard = () => {
     }],
   };
 
-  // Configuração do gráfico (opções de exemplo)
   const options = {
     scales: {
       y: {
@@ -67,27 +62,22 @@ const Dashboard = () => {
     },
   };
 
-  // Ref para o elemento de gráfico
   const chartRef = React.useRef(null);
 
-  // Atualizar o gráfico quando o componente for montado
   React.useEffect(() => {
     let myChart = null;
 
     if (chartRef && chartRef.current) {
       if (chartRef.current.chart) {
-        // Destruir o gráfico anterior, se existir
         chartRef.current.chart.destroy();
       }
-      // Criar um novo gráfico
       myChart = new Chart(chartRef.current, {
-        type: 'bar', // altere conforme necessário (bar, line, etc.)
+        type: 'bar', 
         data: data,
         options: options,
       });
     }
 
-    // Retornar uma função de limpeza para destruir o gráfico quando o componente for desmontado
     return () => {
       if (myChart) {
         myChart.destroy();
@@ -97,9 +87,7 @@ const Dashboard = () => {
 
   return (
     <div className={classes.root}>
-      {/* Grid container para organizar os elementos */}
       <Grid container spacing={2}>
-        {/* Grid item para as métricas */}
         <Grid item xs={12} md={6}>
           <Card className={classes.card}>
             <CardContent className={classes.metricsCard}>             
@@ -123,7 +111,6 @@ const Dashboard = () => {
             </CardContent>
           </Card>
         </Grid>
-        {/* Grid item para o gráfico */}
         <Grid item xs={12} md={6}>
           <Card className={classes.card}>
             <CardContent>

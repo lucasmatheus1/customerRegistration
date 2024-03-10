@@ -5,6 +5,9 @@ import Dashboard from './pages/Dashboard'
 import Home from './pages/Home'
 import AppSidebar from './pages/AppSideBar';
 import { makeStyles } from '@material-ui/core/styles';
+import ActiveCustomers from './pages/ActiveCustomers';
+import PartnerSuppliers from './pages/PartnerSuppliers';
+import ClientsPerConsultant from './pages/ClientsPerConsultant';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -26,6 +29,9 @@ const App = () => {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/active-customers" element={<ActiveCustomers />} />
+              <Route path="/clients-per-consultant" element={<ClientsPerConsultant />} />
+              <Route path="/partner-suppliers" element={<PartnerSuppliers />} />
               <Route path="/logout" element={<Typography variant="h3">Você saiu!</Typography>} />
             </Routes>
           </Grid>
