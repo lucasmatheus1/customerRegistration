@@ -32,7 +32,10 @@ function AppSidebar() {
           <ListItem button component={Link} to="/">
             <ListItemText primary="Home" />
           </ListItem>
-          <ListItem button component={Link} to="/dashboard">
+          <ListItem button component={Link} to="/table">
+            <ListItemText primary="Tabela" />
+          </ListItem>
+          {/* <ListItem button component={Link} to="/dashboard">
             <ListItemText primary="Dashboard" />
           </ListItem>
           <ListItem button component={Link} to="/active-customers">
@@ -43,7 +46,7 @@ function AppSidebar() {
           </ListItem>
           <ListItem button component={Link} to="/partner-suppliers">
             <ListItemText primary="Fornecedores Parceiros" />
-          </ListItem>
+          </ListItem> */}
         </List>
       </Drawer>
     </>

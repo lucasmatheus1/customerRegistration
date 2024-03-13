@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Typography, Container, Grid } from '@material-ui/core';
-import Dashboard from './pages/Dashboard'
+import Table from './pages/Table'
 import Home from './pages/Home'
 import AppSidebar from './pages/AppSideBar';
 import { makeStyles } from '@material-ui/core/styles';
@@ -28,11 +28,11 @@ const App = () => {
           <Grid container spacing={3}>
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/active-customers" element={<ActiveCustomers />} />
+              <Route path="/table" element={<Table />} />
+              {/* <Route path="/active-customers" element={<ActiveCustomers />} />
               <Route path="/clients-per-consultant" element={<ClientsPerConsultant />} />
               <Route path="/partner-suppliers" element={<PartnerSuppliers />} />
-              <Route path="/logout" element={<Typography variant="h3">Você saiu!</Typography>} />
+              <Route path="/logout" element={<Typography variant="h3">Você saiu!</Typography>} /> */}
             </Routes>
           </Grid>
         </Container>

@@ -2,21 +2,21 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-export const DeliveryModel = {
+export const SporadicProductModel = {
   async create(data: any) {
-    return await prisma.delivery.create({
+    return await prisma.sporadicProduct.create({
       data,
     });
   },
 
   async find(where: any) {
-    return await prisma.delivery.findMany({
+    return await prisma.sporadicProduct.findMany({
       where,
     });
   },
 
   async findById(id: string) {
-    return await prisma.delivery.findUnique({
+    return await prisma.sporadicProduct.findUnique({
       where: {
         id: id,
       },
@@ -24,7 +24,7 @@ export const DeliveryModel = {
   },
 
   async update(id: string, data: any) {
-    return await prisma.delivery.update({
+    return await prisma.sporadicProduct.update({
       where: {
         id: id,
       },
@@ -33,7 +33,7 @@ export const DeliveryModel = {
   },
 
   async delete(id: string) {
-    return await prisma.delivery.delete({
+    return await prisma.sporadicProduct.delete({
       where: {
         id: id,
       },

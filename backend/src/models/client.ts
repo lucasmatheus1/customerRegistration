@@ -2,7 +2,7 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-export default {
+export const ClientModel = {
   async create(data: any) {
     return await prisma.client.create({
       data,
